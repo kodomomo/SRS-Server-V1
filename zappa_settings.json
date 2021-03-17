@@ -1,0 +1,11 @@
+{
+    "dev": {
+        "app_function": "srs_server.lambda.app",
+        "cors": true,
+        "domain": "api.dsm-srs.site",
+        "project_name": "srs-server-v1",
+        "runtime": "python3.6",
+        "s3_bucket": "dsm-srs",
+        "certificate_arn": "arn:aws:acm:us-east-1:739742126463:certificate/6bd539ef-4c58-42f9-8f71-56bf335e397a"
+    }
+}

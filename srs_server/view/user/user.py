@@ -13,6 +13,7 @@ class User(UserResource):
         id = get_jwt_identity()
         user = UserModel.find_by_id(id)
         return {
+            "id": user.id,
             "name": user.name,
             "number": user.number
         }, 200
@@ -37,6 +38,7 @@ class Search(UserResource):
 
     def generate_user_dict(self, user):
         user_dict = {}
+        user_dict['id'] = user.id
         user_dict['name'] = user.name
         user_dict['number'] = user.number
         return user_dict

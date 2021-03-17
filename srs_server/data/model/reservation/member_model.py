@@ -15,3 +15,7 @@ class MemberModel(db.Model, BaseMixin):
     @staticmethod
     def find_by_reservation_id(reservation_id):
         return MemberModel.query.filter_by(reservation_id=reservation_id).all()
+
+    @staticmethod
+    def find_by_user_id(user_id):
+        return MemberModel.query.filter_by(user_id=user_id).all()
