@@ -47,3 +47,7 @@ class ReservationModel(db.Model, BaseMixin):
     def find_by_id(id):
         return ReservationModel.query.filter_by(id=id).first()
 
+    @staticmethod
+    def find_by_user_id(user_id):
+        return ReservationModel.query.filter_by(user_id=user_id).first()
+

@@ -12,18 +12,18 @@ class SeminarRoom(ApplyResource):
         room = request.args.get('room')
         reservation_model = ReservationModel.find_by_room(room) if room else ReservationModel.find_all()
         return {
-            'reservation': [
-                {
-                    'reservation_id': x.id,
-                    'room': x.room,
-                    'time': x.time,
-                    'leader': self.generate_user_dict(UserModel.find_by_id(x.user_id)),
-                    'member': [
-                        self.generate_user_dict(UserModel.find_by_id(member.user_id))
-                                                for member in MemberModel.find_by_reservation_id(x.id)]
-                } for x in reservation_model
-            ]
-        }, 200
+                   'reservation': [
+                       {
+                           'reservation_id': x.id,
+                           'room': x.room,
+                           'time': x.time,
+                           'leader': self.generate_user_dict(UserModel.find_by_id(x.user_id)),
+                           'member': [
+                               self.generate_user_dict(UserModel.find_by_id(member.user_id))
+                               for member in MemberModel.find_by_reservation_id(x.id)]
+                       } for x in reservation_model
+                   ]
+               }, 200
 
     @jwt_required()
     def post(self):
@@ -76,7 +76,8 @@ class MySeminarRoom(ApplyResource):
                                self.generate_user_dict(UserModel.find_by_id(member.user_id))
                                for member in MemberModel.find_by_reservation_id(x.id)]
                        } for x in [ReservationModel.find_by_id(i.reservation_id)
-                                   for i in MemberModel.find_by_user_id(user_id)]
+                                   for i in MemberModel.find_by_user_id(user_id)] + \
+                                  ReservationModel.find_by_user_id(user_id)
                    ]
                }, 200
 
