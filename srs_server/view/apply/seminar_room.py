@@ -17,6 +17,7 @@ class SeminarRoom(ApplyResource):
                            'reservation_id': x.id,
                            'room': x.room,
                            'time': x.time,
+                           'description': x.description,
                            'leader': self.generate_user_dict(UserModel.find_by_id(x.user_id)),
                            'member': [
                                self.generate_user_dict(UserModel.find_by_id(member.user_id))
@@ -33,6 +34,8 @@ class SeminarRoom(ApplyResource):
         time = payload['time']
         description = payload['description']
         members = payload['members']
+
+        if id in members: abort(400)
 
         reservation = ReservationModel(id, room, time, description).apply()
         for member in members:
@@ -68,7 +71,7 @@ class MySeminarRoom(ApplyResource):
                    'reservation': [
                        {
                            'reservation_id': x.id,
-                           'reason': x.description,
+                           'description': x.description,
                            'room': x.room,
                            'time': x.time,
                            'leader': self.generate_user_dict(UserModel.find_by_id(x.user_id)),

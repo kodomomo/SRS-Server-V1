@@ -49,5 +49,5 @@ class ReservationModel(db.Model, BaseMixin):
 
     @staticmethod
     def find_by_user_id(user_id):
-        return ReservationModel.query.filter_by(user_id=user_id).first()
+        return ReservationModel.query.filter_by(user_id=user_id).all()
 
