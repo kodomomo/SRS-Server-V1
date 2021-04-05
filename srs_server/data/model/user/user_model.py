@@ -1,6 +1,8 @@
 from srs_server.extension import db
 from srs_server.data.model.base import BaseMixin
 
+from sqlalchemy import or_, and_, not_
+
 
 class UserModel(db.Model, BaseMixin):
     __tablename__ = 'tbl_user'
@@ -27,6 +29,9 @@ class UserModel(db.Model, BaseMixin):
         return UserModel.query.filter_by(id=id).first()
 
     @staticmethod
-    def search_by_number(number):
-        print(type(number))
-        return UserModel.query.filter(UserModel.number.like(f'%{number}%')).all()
+    def search_by_number_or_name(query, number):
+        return UserModel.query.filter(
+            or_(
+                and_(UserModel.number.like(f'%{query}%'), not_(UserModel.number == number)),
+                UserModel.name.like(f'%{query}%')
+            )).all()

@@ -31,9 +31,11 @@ class User(UserResource):
 
 
 class Search(UserResource):
+    @jwt_required()
     def get(self):
-        number = request.args.get('number')
-        users = UserModel.search_by_number(number)
+        user = UserModel.find_by_id(get_jwt_identity())
+        query = request.args.get('query')
+        users = UserModel.search_by_number_or_name(query, user.number)
         return {'users': [self.generate_user_dict(user) for user in users]}, 200
 
     def generate_user_dict(self, user):
