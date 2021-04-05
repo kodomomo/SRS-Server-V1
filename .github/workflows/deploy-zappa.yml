@@ -24,8 +24,10 @@ jobs:
         aws-region: ap-northeast-2
         
     - name: deploy with zappa
+      env:
+        VIRTUAL_ENV: ./venv
       run: |
-        python -m virtualenv venv
+        python -m venv venv
         source venv/bin/activate
         python -m pip install --upgrade pip
         pip install -r requirements.txt
