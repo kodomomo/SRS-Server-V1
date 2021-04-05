@@ -3,7 +3,7 @@ name: Deploy to Lambda with Zappa
 on:
   push:
     branches: 
-    - master
+    - main
 
 jobs:
   build:
